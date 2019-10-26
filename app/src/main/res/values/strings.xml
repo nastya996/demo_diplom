@@ -16,6 +16,12 @@
     <string name="save_pin">save</string>
     <string name="hint_edit_text_settings">Введите пинкод </string>
     <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
+    <string name="title">Заголовок</string>
+    <string name="subtitle">Тело заметки</string>
+    <string name="dateDeadline">Дедлайн</string>
+    <string name="settings">settings</string>
+    <string name="day_deadline">День дедлайна</string>
+
+
 
 </resources>

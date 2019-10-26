@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoteActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarNote"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/Toolbar"/>
+
+        <EditText
+            android:id="@+id/input_title"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="@string/title"
+            android:inputType="datetime"
+            android:lines="1"
+            android:padding="8dp"
+            android:textSize="30sp"
+            android:autofillHints="" tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/input_subtitle"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:hint="@string/subtitle"
+            android:inputType="textMultiLine|text"
+            android:lines="8"
+            android:padding="8dp"
+            android:textSize="20sp"
+            android:autofillHints="" tools:targetApi="o" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/deadlineCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/dateDeadline"
+            android:onClick="checkDeadline"
+            android:buttonTint="#DDB525"/>
+
+        <LinearLayout
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/input_deadline"
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/day_deadline"
+                android:importantForAutofill="no"
+                android:inputType="number" />
+
+            <ImageButton
+                android:layout_width="62dp"
+                android:layout_height="match_parent"
+                android:onClick="createDeadline"
+                android:src="@drawable/ic_event_black_24dp"
+                android:contentDescription="@string/todo" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

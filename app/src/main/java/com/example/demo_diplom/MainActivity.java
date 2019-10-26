@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initViews() { // инициализация
+    private void initViews() {
+        pinCheck = App.getKeyStore();// инициализация
         btnOne = findViewById(R.id.btn_one);
         btnTwo = findViewById(R.id.btn_two);
         btnThree = findViewById(R.id.btn_three);
