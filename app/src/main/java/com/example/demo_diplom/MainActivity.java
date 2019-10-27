@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnClear;
     private String pin = "";
     private View circleOne;
-    private View circleSet;
     private View circleTwo;
     private View circleThree;
     private View circleFour;
