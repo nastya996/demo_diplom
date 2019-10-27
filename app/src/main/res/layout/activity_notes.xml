@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NoteActivity"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:background="#1B1A14">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
             android:id="@+id/toolbarNote"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/Toolbar"/>
+            android:background="#68BD31"
+            android:theme="@style/Toolbar" />
 
         <EditText
             android:id="@+id/input_title"
@@ -26,12 +26,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
+            android:autofillHints=""
+            android:backgroundTint="#FFD600"
             android:hint="@string/title"
             android:inputType="datetime"
             android:lines="1"
             android:padding="8dp"
+            android:textColorHint="#FDFFFFFF"
             android:textSize="30sp"
-            android:autofillHints="" tools:targetApi="o" />
+            tools:targetApi="o" />
 
         <EditText
             android:id="@+id/input_subtitle"
@@ -39,21 +42,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
+            android:autofillHints=""
+            android:backgroundTint="#FFD600"
             android:hint="@string/subtitle"
             android:inputType="textMultiLine|text"
             android:lines="8"
             android:padding="8dp"
+            android:textColor="#00FFFFFF"
+            android:textColorHint="#FFFFFF"
             android:textSize="20sp"
-            android:autofillHints="" tools:targetApi="o" />
+            tools:targetApi="o" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/deadlineCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="@string/dateDeadline"
+            android:buttonTint="#DDB525"
             android:onClick="checkDeadline"
-            android:buttonTint="#DDB525"/>
+            android:text="@string/dateDeadline"
+            android:textColor="#FAFFFFFF" />
 
         <LinearLayout
             android:layout_margin="15dp"
@@ -64,9 +72,11 @@
                 android:id="@+id/input_deadline"
                 android:layout_width="315dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#FFD600"
                 android:hint="@string/day_deadline"
                 android:importantForAutofill="no"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColorHint="#F7FFFFFF" />
 
             <ImageButton
                 android:layout_width="62dp"

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_margin="30dp">
+    android:layout_margin="30dp"
+    android:background="#000C0404"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btn_save_pin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_settings"
-        android:textSize="30sp" />
+        android:text="@string/save_pin" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -24,22 +25,22 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#DDB525"
             android:hint="@string/hint_edit_text_settings"
+            android:importantForAutofill="no"
             android:inputType="numberPassword"
-            android:maxLength="4"
-            android:importantForAutofill="no" />
+            android:maxLength="4" />
 
         <ImageButton
             android:id="@+id/btn_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/todo"
             android:onClick="showPin"
-            android:src="@drawable/ic_visibility_off_black_24dp"
-            android:contentDescription="@string/todo" />
+            android:src="@drawable/ic_visibility_off_black_24dp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_save_pin"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save_pin" />
-</LinearLayout>
+        android:text="@string/title_settings"
+        android:textSize="30sp" />
+</>
