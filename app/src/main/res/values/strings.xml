@@ -14,7 +14,7 @@
     <string name="clear"><![CDATA[<-]]></string>
     <string name="title_settings">Enter new pin:</string>
     <string name="save_pin">save</string>
-    <string name="hint_edit_text_settings">Введите пинкод </string>
+    <string name="hint_edit_text_settings">Введите пинкод: </string>
     <string name="todo">TODO</string>
     <string name="title">Заголовок</string>
     <string name="subtitle">Тело заметки</string>
