@@ -5,16 +5,15 @@ import android.content.SharedPreferences;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class CheckPin implements KeyStore {
+public class PinCheck implements KeyStore {
 
     private SharedPreferences pref;
     private Context contx;
 
-    public CheckPin(Context context) {
+    public PinCheck(Context context) {
         pref = context.getSharedPreferences("Pin", MODE_PRIVATE);
         this.contx = context;
     }
-
 
     @Override
     public boolean checkPin(String pin) {

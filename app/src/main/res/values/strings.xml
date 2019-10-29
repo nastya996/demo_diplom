@@ -18,9 +18,9 @@
     <string name="todo">TODO</string>
     <string name="title">Заголовок</string>
     <string name="subtitle">Тело заметки</string>
-    <string name="dateDeadline">Дедлайн</string>
-    <string name="settings">settings</string>
+    <string name="deadline">Дедлайн</string>
     <string name="day_deadline">День дедлайна</string>
+    <string name="dateDeadline"></string>>
 
 
 
