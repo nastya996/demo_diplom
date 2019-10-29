@@ -2,50 +2,77 @@ package com.example.demo_diplom;
 
 import androidx.annotation.Nullable;
 
-public class Note {
-    private String titleNote;
-    private String textNote;
-    private String dateDeadline;
-    private String dateUpdateNote;
+import java.util.Date;
+import java.util.Objects;
+import io.realm.annotations.PrimaryKey;
 
-    Note(@Nullable String titleNote, String textNote, @Nullable String dateDeadline, @Nullable String dateUpdateNote) {
-        this.titleNote = titleNote;
-        this.textNote = textNote;
-        this.dateDeadline = dateDeadline;
-        this.dateUpdateNote = dateUpdateNote;
+public class Note extends RealmObject {
+
+    @PrimaryKey
+    @Nullable
+    private String idNote;
+
+    private String title;
+    private String subtitle;
+    private Date deadline;
+
+    public Note() {
+
     }
 
-    String getTitleNote() {
-        return titleNote;
+    public Note(String title, String subtitle, Date deadline) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.deadline = deadline;
+        this.idNote = String.valueOf(Objects.hash(this.title, this.subtitle, this.deadline));
     }
 
-    public void setTitleNote(String titleNote) {
-        this.titleNote = titleNote;
+    public Note (String title, String subtitle) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.idNote = String.valueOf(Objects.hash(this.title, this.subtitle));
     }
 
-    String getTextNote() {
-        return textNote;
+    public String getIdNote() {
+        return idNote;
     }
 
-    public void setTextNote(String textNote) {
-        this.textNote = textNote;
+    public String getTitle() {
+        return title;
     }
 
-    String getDateDeadline() {
-        return dateDeadline;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setDateDeadline(String dateDeadline) {
-        this.dateDeadline = dateDeadline;
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    String getDateUpdateNote() {
-        return dateUpdateNote;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
-    public void setDateUpdateNote(String dateUpdateNote) {
-        this.dateUpdateNote = dateUpdateNote;
+    public Date getDeadline() {
+        return deadline;
     }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+   /* @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Note note = (Note) o;
+        return Objects.equals(title, note.title) &&
+                Objects.equals(subtitle, note.subtitle) &&
+                Objects.equals(deadline, note.deadline);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, subtitle, deadline);
+    }*/
 }
-
-

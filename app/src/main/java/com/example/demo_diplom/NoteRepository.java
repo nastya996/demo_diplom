@@ -1,17 +1,13 @@
 package com.example.demo_diplom;
 
+import java.util.Date;
 import java.util.List;
 
-public interface NoteRepository {
-    Note getNoteById(String id);
+public interface NoteRepository { List<Note> getNotes();
 
-    List<Note> getNotes();
-
-    boolean connection();
-
-    void createDefaultNotes();
-
+    Note getNote(String idNote);
     void saveNote(Note note);
-
-    void deleteById(String id);
+    void updateNote(String idNote, String title, String subtitle, Date deadline);
+    void updateNote(String idNote, String title, String subtitile);
+    void deleteNote(String idNote);
 }

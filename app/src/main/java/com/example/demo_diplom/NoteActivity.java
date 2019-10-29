@@ -1,103 +1,165 @@
 package com.example.demo_diplom;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
+
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 
-public class NoteActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    private EditText dataDeadline;
-    private Bundle bundle;
-    private EditText textNote, titleNote;
-    private NoteRepository myNoteRepository;
+public class NoteActivity extends AppCompatActivity {
+
+    private EditText inputDeadline;
+    private MaterialCheckBox checkBoxDeadline;
+    private EditText inputTitle;
+    private EditText inputSubtitle;
+
+
+    private NoteRepository baseNotes;
+    private String idNote;
+    private Note changedNote;
+
+    private DateFormat dateFormat;
+    private Date deadlineTime;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_view);
-
-        initViews();
+        setContentView(R.layout.activity_notes);
+        initView();
+        noteChanges();
     }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        ++month;
-        dataDeadline.setText((dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth) + "." + (month < 10 ? "0" + month : month) + "." + year);
-    }
-
-    public void initViews() {
-
-        myNoteRepository = App.getNoteRepository();
-        myNoteRepository = new IsNoteRepository(this, MainActivity.FILE_NAME);
-
-        myNoteRepository = App.getNoteRepository();
-
-        titleNote = findViewById(R.id.input_title);
-        textNote = findViewById(R.id.input_subtitle);
-        dataDeadline = findViewById(R.id.input_deadline);
-
-
-        {
-            bundle = getIntent().getExtras();
-            if (bundle == null) {
-                return;
-            }
-
-            if (bundle.getInt(MainActivity.POSITION_LISTVIEW) != -1) {
-
-                Note note = myNoteRepository.getNoteById(Integer.toString(bundle.getInt(MainActivity.POSITION_LISTVIEW)));
-
-                if (note.getTitleNote().length() != 0) {
-                    titleNote.setText(note.getTitleNote());
-                }
-                if (note.getTextNote().length() != 0) {
-                    textNote.setText(note.getTextNote());
-                }
-
-                if (note.getDateDeadline().length() != 0) {
-
-                    dataDeadline.setEnabled(true);
-                    dataDeadline.setText(note.getDateDeadline());
-                }
-            }
-        }
-    }
-
-
-    CheckBox checkBox = findViewById(R.id.deadlineCheckbox);
-
-    CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            if (b) {
-                dataDeadline.setEnabled(true);
-                dataDeadline.requestFocus();
-            } else {
-                dataDeadline.setEnabled(false);
-                dataDeadline.setText("");
-            }
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.notes, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.saveNote:
+                saveNote();
+                Intent intent = new Intent(this, ListActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
         return true;
     }
+
+    public void initView() {
+        Toolbar toolbar = findViewById(R.id.toolbarNote);
+        setSupportActionBar(toolbar);
+        inputDeadline = findViewById(R.id.input_deadline);
+        checkBoxDeadline = findViewById(R.id.deadlineCheckbox);
+        inputTitle = findViewById(R.id.input_title);
+        inputSubtitle = findViewById(R.id.input_subtitle);
+
+        idNote = getIntent().hasExtra("idNote") ?
+                getIntent().getStringExtra("idNote") : "";
+
+
+        toolbar.setTitleTextColor(Color.WHITE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        baseNotes = App.getBaseNotes();
+        dateFormat = App.getDateFormat();
+    }
+
+    public void createDeadline(View view) {
+
+        final Calendar todayCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener onDateSet = (view1, year, month, dayOfMonth) -> {
+            String initDay = String.valueOf(dayOfMonth);
+            String initMonth = String.valueOf(month + 1);
+            String initYear = String.valueOf(year);
+
+            inputDeadline.setText((initDay.length() > 1 ? initDay : "0" + initDay) + "."
+                    + ((initMonth.length() > 1 ? initMonth : "0" + initMonth)) + "." + initYear);
+            if (!checkBoxDeadline.isChecked()) {
+                inputDeadline.setText("");
+            }
+        };
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                onDateSet,
+                todayCalendar.get(Calendar.YEAR),
+                todayCalendar.get(Calendar.MONTH),
+                todayCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    public void checkDeadline(View view) {
+        if (!checkBoxDeadline.isChecked()) {
+            inputDeadline.setText("");
+        }
+    }
+
+    public void saveNote() {
+        String title = inputTitle.getText().toString();
+        String subtitle = inputSubtitle.getText().toString();
+        String deadline = inputDeadline.getText().toString();
+
+        try {
+            deadlineTime = dateFormat.parse(deadline);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (deadline.equals("")) {
+            if ("".equals(idNote)) {
+                Note note = new Note(title, subtitle);
+                baseNotes.saveNote(note);
+                Toast.makeText(this, "Заметка добавлена", Toast.LENGTH_LONG).show();
+            } else {
+                baseNotes.updateNote(changedNote.getIdNote(), title, subtitle);
+                Toast.makeText(this, "Заметка изменена", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            if ("".equals(idNote)) {
+                Note note = new Note(title, subtitle, deadlineTime);
+                baseNotes.saveNote(note);
+                Toast.makeText(this, "Заметка добавлена", Toast.LENGTH_LONG).show();
+            } else {
+                baseNotes.updateNote(changedNote.getIdNote(), title, subtitle, deadlineTime);
+                Toast.makeText(this, "Заметка изменена", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void noteChanges() {
+        if (!"".equals(idNote)) {
+            changedNote = baseNotes.getNote(idNote);
+
+            inputTitle.setText(changedNote.getTitle());
+            inputSubtitle.setText(changedNote.getSubtitle());
+            if (changedNote.getDeadline() != null) {
+                inputDeadline.setText(dateFormat.format(changedNote.getDeadline()));
+            }
+        }
+    }
 }
-
-
 

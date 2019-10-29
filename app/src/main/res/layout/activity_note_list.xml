@@ -28,7 +28,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="10dp"
         android:backgroundTint="#DDB525"
-        android:onClick="createNote"
         android:src="@drawable/ic_add_black_24dp" />
 
 </FrameLayout>
