@@ -37,14 +37,13 @@ public class DateNote implements TextWatcher {
         for (int i = 1; i <= cl && i < 6; i += 2) {
             sel++;
         }
-        //Fix for pressing delete next to a forward slash
+
         if (clean.equals(cleanC)) sel--;
 
         if (clean.length() < 8) {
             clean = clean + formatDate.substring(clean.length());
         } else {
-            //This part makes sure that when we finish entering numbers
-            //the date is correct, fixing it otherwise
+
             int day = Integer.parseInt(clean.substring(0, 2));
             int mon = Integer.parseInt(clean.substring(2, 4));
             int year = Integer.parseInt(clean.substring(4, 8));

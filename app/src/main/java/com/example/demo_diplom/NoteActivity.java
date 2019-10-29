@@ -17,7 +17,7 @@ public class NoteActivity extends AppCompatActivity implements DatePickerDialog.
     private Bundle bundle;
     private EditText textNote, titleNote;
     private NoteRepository myNoteRepository;
-    private final String TAG_DATE_PICKER = "date picker";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class NoteActivity extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.notes, menu);
         return true;
     }

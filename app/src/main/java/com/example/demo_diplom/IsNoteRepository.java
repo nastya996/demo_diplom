@@ -58,12 +58,12 @@ public class IsNoteRepository implements NoteRepository {
         List<Note> noteList = new ArrayList<>();
         BufferedReader br = null;
         try {
-            // открываем поток для чтения
+
             br = new BufferedReader(new InputStreamReader(
                     context.openFileInput(fileName)));
             String str;
 
-            // читаем содержимое
+
             while ((str = br.readLine()) != null) {
 
                 String[] arrayContent = str.split("\n");
@@ -78,7 +78,7 @@ public class IsNoteRepository implements NoteRepository {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            // закрываем поток
+
             try {
                 br.close();
             } catch (IOException e) {
@@ -95,7 +95,7 @@ public class IsNoteRepository implements NoteRepository {
         BufferedWriter bw = null;
         try {
             if (connection()) {
-                // отрываем поток для записи
+
                 bw = new BufferedWriter(new OutputStreamWriter(
                         context.openFileOutput(fileName, MODE_APPEND)));
             } else {
@@ -103,7 +103,7 @@ public class IsNoteRepository implements NoteRepository {
                         context.openFileOutput(fileName, MODE_PRIVATE)));
             }
 
-            // пишем данные
+
             bw.write((note.getTitleNote() == null ? "" : note.getTitleNote()) + ";" +
                     (note.getTextNote() == null ? "" : note.getTextNote()) + ";" +
                     (note.getDateDeadline() == null ? "" : note.getDateDeadline()) + ";" +
