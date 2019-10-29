@@ -1,119 +1,51 @@
 package com.example.demo_diplom;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import androidx.annotation.Nullable;
 
-public class Note implements Comparable {
-    private String title;
-    private String note;
+public class Note {
+    private String titleNote;
+    private String textNote;
+    private String dateDeadline;
+    private String dateUpdateNote;
 
-    private String id;
-
-    private String deadlineText;
-    private Date deadline;
-    private Date lastEdit;
-
-    public Note(String title, String note, String deadline) {
-        this.title = title;
-        this.note = note;
-        DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-        this.deadlineText = deadline;
-        try {
-            this.deadline = date.parse(deadline);
-        } catch (Exception e) {
-
-        }
-        lastEdit = new Date(System.currentTimeMillis());
-        id = String.valueOf(lastEdit.getTime());
+    Note(@Nullable String titleNote, String textNote, @Nullable String dateDeadline, @Nullable String dateUpdateNote) {
+        this.titleNote = titleNote;
+        this.textNote = textNote;
+        this.dateDeadline = dateDeadline;
+        this.dateUpdateNote = dateUpdateNote;
     }
 
-    public Note(String title, String note, String deadline, String id) {
-        this.title = title;
-        this.note = note;
-        DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-        this.deadlineText = deadline;
-        try {
-            this.deadline = date.parse(deadline);
-        } catch (Exception e) {
-
-        }
-        lastEdit = new Date(System.currentTimeMillis());
-        this.id = id;
+    String getTitleNote() {
+        return titleNote;
     }
 
-    public String getTitle() {
-        return title;
+    public void setTitleNote(String titleNote) {
+        this.titleNote = titleNote;
     }
 
-    public String getDeadlineText() {
-        return deadlineText;
+    String getTextNote() {
+        return textNote;
     }
 
-    public String getId() {
-        return id;
+    public void setTextNote(String textNote) {
+        this.textNote = textNote;
     }
 
-    public void setDeadlineText(String deadliteText) {
-        this.deadlineText = deadliteText;
+    String getDateDeadline() {
+        return dateDeadline;
     }
 
-
-    public void setTitle(String title) {
-        this.title = title;
-        lastEdit = new Date(System.currentTimeMillis());
+    public void setDateDeadline(String dateDeadline) {
+        this.dateDeadline = dateDeadline;
     }
 
-    public String getNote() {
-        return note;
+    String getDateUpdateNote() {
+        return dateUpdateNote;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-        lastEdit = new Date(System.currentTimeMillis());
-    }
-
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
-    }
-
-    public void setDeadline(String deadline) {
-        DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            this.deadline = date.parse(deadline);
-        } catch (Exception e) {
-
-        }
-        lastEdit = new Date(System.currentTimeMillis());
-    }
-
-    public Date getLastEdit() {
-        return lastEdit;
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        Note n = (Note) o;
-        if (this.deadline == null) {
-            if (n.deadline == null) {
-                return (-1) * this.getLastEdit().compareTo(n.getLastEdit());
-            } else {
-                return (1);
-            }
-        }
-        if (n.deadline == null) {
-            return (-1);
-        }
-        if (this.getDeadline().compareTo(n.getDeadline()) == 0) {
-            return (-1)*this.getLastEdit().compareTo(n.getLastEdit());
-        } else {
-            return this.getDeadline().compareTo(n.getDeadline());
-        }
-
+    public void setDateUpdateNote(String dateUpdateNote) {
+        this.dateUpdateNote = dateUpdateNote;
     }
 }
+
 

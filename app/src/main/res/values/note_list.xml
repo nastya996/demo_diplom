@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="title1">сериалы</string>
+    <string name="serial">Черное зеркало</string>
+    <string name="deadline">10.09.2019</string>
+    <string name="doctor">Запись к врачу</string>
+    <string name="date_update">4.11.2019</string>
+
+
+</resources>
