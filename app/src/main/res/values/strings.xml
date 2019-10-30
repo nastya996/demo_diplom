@@ -14,8 +14,8 @@
     <string name="clear"><![CDATA[<-]]></string>
     <string name="title_settings">Enter new pin:</string>
     <string name="save_pin">save</string>
-    <string name="hint_edit_text_settings">Введите пинкод из четырех цифр</string>
-    <string name="dialog_message">Вы уверены что хотите удалить эту заметку?</string>
+    <string name="hint_edit_text_settings">Введите пинкод </string>
+    <string name="dialog_message">Хотите удалить эту заметку?</string>
     <string name="dialog_title">Внимание</string>
     <string name="delete">Удалить</string>
     <string name="cancel">Отмена</string>
@@ -24,5 +24,7 @@
     <string name="deadline">Дедлайн</string>
     <string name="day_deadline">День дедлайна</string>
     <string name="dateDeadline">23.05.2019</string>
+    <string name="todo">TODO</string>
+
 
 </resources>

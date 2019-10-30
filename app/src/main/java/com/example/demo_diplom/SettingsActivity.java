@@ -1,5 +1,6 @@
 package com.example.demo_diplom;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -9,11 +10,11 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+@SuppressLint("Registered")
 public class SettingsActivity extends AppCompatActivity {
 
     private EditText inputPin;
     private ImageButton btnShowPin;
-    private Button btnSavePin;
     boolean flag = true;
     private KeyStore pinCheck;
 
@@ -27,7 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void initView() {
         inputPin = findViewById(R.id.input_pin);
         btnShowPin = findViewById(R.id.btn_show);
-        btnSavePin = findViewById(R.id.btn_save_pin);
+        Button btnSavePin = findViewById(R.id.btn_save_pin);
 
         pinCheck = App.getKeyStore();
         btnSavePin.setOnClickListener(v -> {

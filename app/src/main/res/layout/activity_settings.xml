@@ -1,61 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1B1A14"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_settings"
+        android:textColor="#0091EA"
+        android:textSize="30sp"
+        android:layout_marginTop="30dp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/input_pin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#DDB525"
+            android:hint="@string/hint_edit_text_settings"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:textColorHint="#FFFFFF"
+            android:importantForAutofill="no" />
+
+        <ImageButton
+            android:id="@+id/btn_show"
+            android:layout_width="61dp"
+            android:layout_height="match_parent"
+            android:onClick="showPin"
+            android:src="@drawable/ic_visibility_off_black_24dp"
+            android:contentDescription="@string/todo" />
+    </LinearLayout>
 
 
     <Button
         android:id="@+id/btn_save_pin"
+        android:layout_width="344dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
         android:background="@drawable/gradient"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:text="@string/save_pin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_pin" />
-
-    <EditText
-        android:id="@+id/input_pin"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:backgroundTint="#DDB525"
-        android:hint="@string/hint_edit_text_settings"
-        android:importantForAutofill="no"
-        android:inputType="numberPassword"
-        android:maxLength="4"
-        android:singleLine="true"
-        android:textColorHint="#F3F5F7"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pin_text_settings" />
-
-    <ImageButton
-        android:id="@+id/btn_show"
-        android:layout_width="54dp"
-        android:layout_height="47dp"
-        android:layout_marginEnd="32dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/ic_visibility_off_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/input_pin"
-        app:layout_constraintTop_toBottomOf="@id/pin_text_settings" />
-
-    <TextView
-        android:id="@+id/pin_text_settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="45dp"
-        android:hint="@string/hint_edit_text_settings"
-        android:textColorHint="#0091EA"
-        android:textSize="32sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="@string/save_pin" />
+</LinearLayout>

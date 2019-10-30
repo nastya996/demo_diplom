@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity  extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private Button btnOne;
     private Button btnTwo;
