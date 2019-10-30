@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 
 import java.util.Date;
 import java.util.Objects;
+
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Note extends RealmObject {
@@ -61,7 +63,7 @@ public class Note extends RealmObject {
         this.deadline = deadline;
     }
 
-   /* @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -74,5 +76,5 @@ public class Note extends RealmObject {
     @Override
     public int hashCode() {
         return Objects.hash(title, subtitle, deadline);
-    }*/
+    }
 }

@@ -10,7 +10,7 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-public class BaseNotes implements NoteRepository {
+class BaseNotes implements NoteRepository {
 
     RealmConfiguration realmConfig;
 
