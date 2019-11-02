@@ -6,17 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SettingsActivity">
+    tools:context=".SettingsActivity"
+    android:background="#F8221F1F">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_settings"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:textSize="20sp"/>
+        android:text="@string/title_settings"
+        android:textColor="#0091EA"
+        android:textSize="35sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,8 +28,8 @@
 
         <EditText
             android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="308dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
@@ -35,13 +37,14 @@
             android:importantForAutofill="no"
             android:inputType="numberPassword"
             android:maxLength="4"
+            android:textColorHint="#F8FFFFFF"
             tools:ignore="NestedWeights" />
 
 
         <ImageButton
             android:id="@+id/buttonLookPassword"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="24dp"
+            android:layout_height="61dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="4"
             android:contentDescription="@string/todo"
@@ -57,6 +60,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
-        android:text="@string/save_pin"/>
+        android:text="@string/save_pin"
+        android:background="@drawable/gradient"/>
 
 </LinearLayout>
