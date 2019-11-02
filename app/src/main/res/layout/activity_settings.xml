@@ -1,52 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1B1A14"
     android:orientation="vertical"
     tools:context=".SettingsActivity">
 
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_settings"
-        android:textColor="#0091EA"
-        android:textSize="30sp"
-        android:layout_marginTop="30dp"/>
-
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="20sp"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/input_pin"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#DDB525"
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
             android:hint="@string/hint_edit_text_settings"
+            android:importantForAutofill="no"
             android:inputType="numberPassword"
             android:maxLength="4"
-            android:textColorHint="#FFFFFF"
-            android:importantForAutofill="no" />
+            tools:ignore="NestedWeights" />
+
 
         <ImageButton
-            android:id="@+id/btn_show"
-            android:layout_width="61dp"
-            android:layout_height="match_parent"
-            android:onClick="showPin"
-            android:src="@drawable/ic_visibility_off_black_24dp"
-            android:contentDescription="@string/todo" />
+            android:id="@+id/buttonLookPassword"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="4"
+            android:contentDescription="@string/todo"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_visibility_off_black_24dp" />
+
     </LinearLayout>
 
-
     <Button
-        android:id="@+id/btn_save_pin"
-        android:layout_width="344dp"
+        android:id="@+id/buttonSavePassword"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:background="@drawable/gradient"
-        android:text="@string/save_pin" />
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/save_pin"/>
+
 </LinearLayout>

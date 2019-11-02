@@ -1,6 +1,9 @@
 package com.example.demo_diplom;
 
 public interface KeyStore {
-    boolean checkPin(String pin);
-    void saveNew(String pin);
+    boolean hasPassword();
+
+    boolean checkPassword(String password);
+
+    void saveNewPassword(String password);
 }

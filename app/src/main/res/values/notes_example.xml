@@ -1,0 +1,9 @@
+<resources>
+    <string name="title1">Сериалы</string>
+    <string name="text1">Черное зеркало, Острые козырьки</string>
+    <string name="deadline1">03.03.2019</string>
+    <string name="text2">Парикмахерская</string>
+    <string name="date_update">01.01.2019</string>
+    <string name="text3">Врач</string>
+
+</resources>

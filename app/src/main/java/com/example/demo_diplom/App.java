@@ -2,33 +2,31 @@ package com.example.demo_diplom;
 
 import android.app.Application;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 public class App extends Application {
 
-    private static NoteRepository baseNotes;
-    private static KeyStore keyStore;
-    private static DateFormat dateFormat;
+    public static NoteRepository noteRepository;
+    public static KeyStore hashedKeyStore;
+    public static final String FILE_NAME = "data.json";
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        baseNotes = new BaseNotes(this);
-        keyStore = new PinCheck(this);
-        dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+        noteRepository = new MyNoteRepository(this, FILE_NAME);
+        hashedKeyStore = (KeyStore) new HashedKeyStore();
     }
 
-    public static NoteRepository getBaseNotes() {
-        return baseNotes;
+    // Возвращаем интерфейс, а не конкретную реализацию!
+    public static NoteRepository getNoteRepository() {
+        return noteRepository;
     }
 
-    public static KeyStore getKeyStore() {
-        return keyStore;
-    }
-
-    public static DateFormat getDateFormat() {
-        return dateFormat;
+    // Возвращаем интерфейс, а не конкретную реализацию!
+    public static KeyStore getKeystore() {
+        return hashedKeyStore;
     }
 }
+
+
+

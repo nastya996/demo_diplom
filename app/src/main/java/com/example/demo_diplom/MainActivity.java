@@ -1,179 +1,166 @@
 package com.example.demo_diplom;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnOne;
-    private Button btnTwo;
-    private Button btnThree;
-    private Button btnFour;
-    private Button btnFive;
-    private Button btnSix;
-    private Button btnSeven;
-    private Button btnEight;
-    private Button btnNine;
-    private Button btnZero;
-    private Button btnClear;
-    private String pin = "";
-    private View ovalOne;
-    private View ovalTwo;
-    private View ovalThree;
-    private View ovalFour;
-    private SharedPreferences pref;
-    private KeyStore pinCheck;
+    public final String SHARED_PREFERENCES_APP_NAME = "mySharePref";
+    public static final String SHARED_PREFERENCES_APP_PASSWORD = "AppPassword";
+    public static final String POSITION_LISTVIEW = "Position";
+    public static SharedPreferences mySharedPreferences;
+    private Intent intent;
+    private NoteAdapter adapter;
+    private static long back_pressed;
+    private NoteRepository fileNoteRepository;
+    public static final String FILE_NAME = "data.file";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        initView();
-        inputPin();
-    }
 
-    public void initView() {  //  инициализация
-        pinCheck = App.getKeyStore();
+        mySharedPreferences = getSharedPreferences(SHARED_PREFERENCES_APP_NAME, MODE_PRIVATE);
 
-        btnOne = findViewById(R.id.btn_one);
-        btnTwo = findViewById(R.id.btn_two);
-        btnThree = findViewById(R.id.btn_three);
-        btnFour = findViewById(R.id.btn_four);
-        btnFive = findViewById(R.id.btn_five);
-        btnSix = findViewById(R.id.btn_six);
-        btnSeven = findViewById(R.id.btn_seven);
-        btnEight = findViewById(R.id.btn_eight);
-        btnNine = findViewById(R.id.btn_nine);
-        btnZero = findViewById(R.id.btn_zero);
-        btnClear = findViewById(R.id.btn_clear);
-        ovalOne = findViewById(R.id.oval_1);
-        ovalTwo = findViewById(R.id.oval_2);
-        ovalThree = findViewById(R.id.oval_3);
-        ovalFour = findViewById(R.id.oval_4);
+        if (App.getKeystore().hasPassword()) {
 
-        pref = getSharedPreferences("Pin", MODE_PRIVATE);
-        String savedPin = pref.getString("Pin", "");
-        if (savedPin.equals("")) {
-            Intent intentSettings = new Intent(this, SettingsActivity.class);
-            startActivity(intentSettings);
-        }
-    }
+            intent = new Intent(MainActivity.this, LoginActivity.class);
 
-    public void checkPin() {
-        if (pin.length() == 4) {
-            if (pinCheck.checkPin(pin)) {
-                pin = "";
-                Intent intent = new Intent(this, ListActivity.class);
+            if (intent != null) {
                 startActivity(intent);
-                clearColorOval();
-            } else {
-                pin = "";
-                Toast.makeText(this, "Введен неверный пинкод!", Toast.LENGTH_LONG).show();
-                clearColorOval();
             }
+        }
+
+        initViews();
+    }
+
+    public void displayNotes() {
+
+        List<Note> notes = fileNoteRepository.getNotes();
+
+        if (notes != null) {
+
+            adapter.refresh(notes);
         }
     }
 
-    public void inputPin() {
-        btnOne.setOnClickListener(v -> {
-            pin = pin + "1";
-            changeColorOval();
-            checkPin();
-        });
+    public void initViews() {
+        fileNoteRepository = App.getNoteRepository();
 
-        btnTwo.setOnClickListener(v -> {
-            pin = pin + "2";
-            changeColorOval();
-            checkPin();
-        });
+        final ListView listView = findViewById(R.id.listView);
+        adapter = new NoteAdapter(this, null);
+        listView.setAdapter(adapter);
 
-        btnThree.setOnClickListener(v -> {
-            pin = pin + "3";
-            changeColorOval();
-            checkPin();
-        });
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        btnFour.setOnClickListener(v -> {
-            pin = pin + "4";
-            changeColorOval();
-            checkPin();
-        });
-
-        btnFive.setOnClickListener(v -> {
-            pin = pin + "5";
-            changeColorOval();
-            checkPin();
-        });
-
-        btnSix.setOnClickListener(v -> {
-            pin = pin + "6";
-            changeColorOval();
-            checkPin();
-        });
-
-        btnSeven.setOnClickListener(v -> {
-            pin = pin + "7";
-            changeColorOval();
-            checkPin();
-        });
-
-        btnEight.setOnClickListener(v -> {
-            pin = pin + "8";
-            changeColorOval();
-            checkPin();
-        });
-
-        btnNine.setOnClickListener(v -> {
-            pin = pin + "9";
-            changeColorOval();
-            checkPin();
-        });
-
-        btnZero.setOnClickListener(v -> {
-            pin = pin + "0";
-            changeColorOval();
-            checkPin();
-        });
-
-        btnClear.setOnClickListener(v -> {
-            if (pin.length() != 0) {
-                if (pin.length() == 3) {
-                    ovalThree.setBackgroundResource(R.drawable.circle);
-                } else if (pin.length() == 2) {
-                    ovalTwo.setBackgroundResource(R.drawable.circle);
-                } else if (pin.length() == 1) {
-                    ovalOne.setBackgroundResource(R.drawable.circle);
-                }
-                pin = pin.substring(0, pin.length() - 1);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNoteActivity(-1);
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openNoteActivity(position);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+                new AlertDialog.Builder(MainActivity.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getString(R.string.textTitleDialogDeleteNote))
+                        .setMessage(getString(R.string.textQuestionDialogDelete))
+                        .setPositiveButton(getString(R.string.textDialogPositiveButton), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                adapter.removeNote(position);
+
+                                fileNoteRepository.deleteById(String.valueOf(position));
+
+                                displayNotes();
+                            }
+                        }).setNegativeButton(getString(R.string.textDialogNegativeButton), null).show();
+                return true;
+            }
+        });
+
+        if (!fileNoteRepository.connection()) {
+            fileNoteRepository.createDefaultNotes();
+            Toast.makeText(this, getString(R.string.textMessageCreateDefaultNotes), Toast.LENGTH_SHORT).show();
+        }
+
+        displayNotes();
     }
 
-    public void changeColorOval() {
+    public void openNoteActivity(int position) {
 
-        if (pin.length() == 1) {
-            ovalOne.setBackgroundResource(R.drawable.circle_set);
-        } else if (pin.length() == 2) {
-            ovalTwo.setBackgroundResource(R.drawable.circle_set);
-        } else if (pin.length() == 3) {
-            ovalThree.setBackgroundResource(R.drawable.circle_set);
-        } else if (pin.length() == 4) {
-            ovalFour.setBackgroundResource(R.drawable.circle_set);
+        intent = new Intent(MainActivity.this, NoteActivity.class);
+
+        intent.putExtra(POSITION_LISTVIEW, position);
+
+        if (intent != null) {
+            startActivity(intent);
         }
     }
 
-    public void clearColorOval() {
-        ovalOne.setBackgroundResource(R.drawable.circle);
-        ovalTwo.setBackgroundResource(R.drawable.circle);
-        ovalThree.setBackgroundResource(R.drawable.circle);
-        ovalFour.setBackgroundResource(R.drawable.circle);
+    @Override
+    protected void onResume() {
+        displayNotes();
+        super.onResume();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+
+        if (id == R.id.action_settings) {
+            intent = new Intent(MainActivity.this, SettingsActivity.class);
+
+            if (intent != null) {
+                startActivity(intent);
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+            finish();
+        } else {
+            Toast.makeText(getBaseContext(), getString(R.string.textMessageExit), Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
+    }
 }
