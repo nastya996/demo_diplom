@@ -53,7 +53,7 @@
     <string name="title">Заголовок</string>
     <string name="subtitle">Тело заметки</string>
     <string name="deadline">Дедлайн</string>
-    <string name="todo">TODO</string>
+
 
 
 </resources>

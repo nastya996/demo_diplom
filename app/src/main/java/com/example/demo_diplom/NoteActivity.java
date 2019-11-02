@@ -174,5 +174,3 @@ public class NoteActivity  extends AppCompatActivity implements DatePickerDialog
         return super.onOptionsItemSelected(item);
     }
 }
-
-
