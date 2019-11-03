@@ -40,11 +40,13 @@ public class MyNoteRepository implements NoteRepository {
 
     @Override
     public void createDefaultNotes() {
-        // Есть ли смысл это все закидывать в defaultNotes. Если это все тестовое? или создать отдельный файл?
+
         String dateNow = new SimpleDateFormat(context.getString(R.string.formatDate), Locale.getDefault()).format(new Date());
 
         saveNote(new Note(context.getString(R.string.title1), context.getString(R.string.text1), context.getString(R.string.deadline1), dateNow));
         saveNote(new Note(null,context.getString(R.string.text2),null,context.getString(R.string.date_update)));
+        saveNote(new Note(null,context.getString(R.string.text3),context.getString(R.string.deadline2),dateNow));
+        saveNote(new Note(context.getString(R.string.title4), context.getString(R.string.text4), context.getString(R.string.deadline3), context.getString(R.string.data_update2)));
 
     }
 
@@ -60,12 +62,12 @@ public class MyNoteRepository implements NoteRepository {
         List<Note> noteList = new ArrayList<>();
         BufferedReader br = null;
         try {
-            // открываем поток для чтения
+
             br = new BufferedReader(new InputStreamReader(
                     context.openFileInput(fileName)));
             String str;
 
-            // читаем содержимое
+
             while ((str = br.readLine()) != null) {
 
                 String[] arrayContent = str.split("\n");
@@ -80,7 +82,7 @@ public class MyNoteRepository implements NoteRepository {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            // закрываем поток
+
             try {
                 br.close();
             } catch (IOException e) {
@@ -97,7 +99,7 @@ public class MyNoteRepository implements NoteRepository {
         BufferedWriter bw = null;
         try {
             if (connection()) {
-                // отрываем поток для записи
+
                 bw = new BufferedWriter(new OutputStreamWriter(
                         context.openFileOutput(fileName, MODE_APPEND)));
             } else {
@@ -105,7 +107,7 @@ public class MyNoteRepository implements NoteRepository {
                         context.openFileOutput(fileName, MODE_PRIVATE)));
             }
 
-            // пишем данные
+
             bw.write((note.getHeadline() == null ? "" : note.getHeadline()) + context.getString(R.string.symbolSeparationValues) +
                     (note.getTextNote() == null ? "" : note.getTextNote()) + context.getString(R.string.symbolSeparationValues) +
                     (note.getDateDeadline() == null ? "" : note.getDateDeadline()) + context.getString(R.string.symbolSeparationValues) +
@@ -115,7 +117,7 @@ public class MyNoteRepository implements NoteRepository {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            // закрываем поток
+
             try {
                 bw.close();
             } catch (IOException e) {

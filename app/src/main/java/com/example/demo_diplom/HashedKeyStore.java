@@ -51,8 +51,7 @@ public class HashedKeyStore implements KeyStore {
             messageDigest.update(password.getBytes());
             digest = messageDigest.digest();
         } catch (NoSuchAlgorithmException e) {
-            // тут можно обработать ошибку
-            // возникает она если в передаваемый алгоритм в getInstance(,,,) не существует
+
             e.printStackTrace();
         }
 

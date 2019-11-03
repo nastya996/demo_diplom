@@ -58,7 +58,7 @@ public class NoteActivity  extends AppCompatActivity implements DatePickerDialog
         headline = findViewById(R.id.editTextHeadlineNote);
         textNote = findViewById(R.id.editTextTextNote);
         dataDeadline = findViewById(R.id.editTextDataDeadline);
-        final CheckBox checkBox = findViewById(R.id.deadlineCheckbox);
+        final CheckBox checkBox = findViewById(R.id.chechboxDeadline);
 
         {
             bundle = getIntent().getExtras();
@@ -128,16 +128,14 @@ public class NoteActivity  extends AppCompatActivity implements DatePickerDialog
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_note, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         switch (id) {

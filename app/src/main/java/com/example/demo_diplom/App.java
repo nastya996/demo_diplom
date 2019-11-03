@@ -14,15 +14,15 @@ public class App extends Application {
 
 
         noteRepository = new MyNoteRepository(this, FILE_NAME);
-        hashedKeyStore = (KeyStore) new HashedKeyStore();
+        hashedKeyStore =  new HashedKeyStore();
     }
 
-    // Возвращаем интерфейс, а не конкретную реализацию!
+
     public static NoteRepository getNoteRepository() {
         return noteRepository;
     }
 
-    // Возвращаем интерфейс, а не конкретную реализацию!
+
     public static KeyStore getKeystore() {
         return hashedKeyStore;
     }

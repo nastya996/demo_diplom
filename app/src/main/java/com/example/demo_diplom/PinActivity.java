@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class PinActivity extends AppCompatActivity {
 
     private String enteredUserPassword = "";
     private int[] images;
@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initViews() {
 
         NumberButtonClickListener numberListener = new NumberButtonClickListener();
+
 
         int[] buttonIdNumber = new int[]{R.id.btn_one, R.id.btn_two
                 , R.id.btn_three, R.id.btn_four
@@ -45,12 +46,14 @@ public class LoginActivity extends AppCompatActivity {
             int idButtonClicked;
 
 
-            if (enteredUserPassword.length() < R.dimen.lengthPassword) {
+
+
+            if (enteredUserPassword.length() < 4) {
                 idButtonClicked = v.getId();
             } else if (v.getId() == R.id.btn_clear) {
                 idButtonClicked = v.getId();
             } else {
-                idButtonClicked = 0; // когда пароль превышает 4 символов
+                idButtonClicked = 0;
             }
 
             switch (idButtonClicked) {
@@ -92,7 +95,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     break;
             }
-
             for (int i = 0; i < images.length; i++) {
                 if (i < enteredUserPassword.length()) {
                     findViewById(images[i]).setBackgroundColor(Color.rgb(255, 193, 7));
@@ -105,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (App.getKeystore().checkPassword(enteredUserPassword)) {
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, R.string.textErrorPassword, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PinActivity.this, R.string.textErrorPassword, Toast.LENGTH_SHORT).show();
                 }
             }
         }
