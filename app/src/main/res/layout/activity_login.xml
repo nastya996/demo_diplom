@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A1887F"
     >
 
     <GridLayout
@@ -153,7 +154,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="300dp"
         android:text="@string/enter_pin"
-        android:textColor="#3A9DDA"
+        android:textColor="#6200EA"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
