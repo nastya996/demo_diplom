@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.example.demo_diplom.App.getKeyStore;
+
 public class PinActivity extends AppCompatActivity {
 
     private String enteredUserPassword = "";
@@ -104,7 +106,7 @@ public class PinActivity extends AppCompatActivity {
             }
 
             if (enteredUserPassword.length() == 4) {
-                if (App.getKeystore().checkPassword(enteredUserPassword)) {
+                if (getKeyStore().checkPassword(enteredUserPassword)) {
                     finish();
                 } else {
                     Toast.makeText(PinActivity.this, R.string.textErrorPassword, Toast.LENGTH_SHORT).show();

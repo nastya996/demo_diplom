@@ -1,12 +1,11 @@
 package com.example.demo_diplom;
 
 import android.content.SharedPreferences;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class HashedKeyStore implements KeyStore {
+public class HashedKeyStore implements KeyStore{
 
     private final String TAG_MESSAGE_DIGEST = "MD5";
 
@@ -65,4 +64,3 @@ public class HashedKeyStore implements KeyStore {
         return md5Hex;
     }
 }
-

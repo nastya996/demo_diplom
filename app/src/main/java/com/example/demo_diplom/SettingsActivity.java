@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.example.demo_diplom.App.getKeystore;
+
 public class SettingsActivity  extends AppCompatActivity {
 
     private boolean lookPassword = false;
@@ -41,7 +43,7 @@ public class SettingsActivity  extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (editNewPassword.length() == 4) {
-                    App.getKeystore().saveNewPassword(editNewPassword.getText().toString());
+                    getKeystore().saveNewPassword(editNewPassword.getText().toString());
 
                     editNewPassword.setText("");
                     Toast.makeText(SettingsActivity.this, getString(R.string.textMessageSavePassword), Toast.LENGTH_SHORT).show();

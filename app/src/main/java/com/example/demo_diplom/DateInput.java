@@ -37,13 +37,14 @@ public class DateInput implements TextWatcher {
         for (int i = 1; i <= cl && i < 6; i += 2) {
             sel++;
         }
-
+        //Fix for pressing delete next to a forward slash
         if (clean.equals(cleanC)) sel--;
 
         if (clean.length() < 8) {
             clean = clean + formatDate.substring(clean.length());
         } else {
-
+            //This part makes sure that when we finish entering numbers
+            //the date is correct, fixing it otherwise
             int day = Integer.parseInt(clean.substring(0, 2));
             int mon = Integer.parseInt(clean.substring(2, 4));
             int year = Integer.parseInt(clean.substring(4, 8));
@@ -60,7 +61,9 @@ public class DateInput implements TextWatcher {
                 mon = mon < 1 ? 1 : mon > 12 ? 12 : mon;
             }
             cal.set(Calendar.MONTH, mon - 1);
-
+            // ^ first set year for the line below to work correctly
+            //with leap years - otherwise, date e.g. 29/02/2012
+            //would be automatically corrected to 28/02/2012
 
             if ((year == getYear) && (mon == getMon)) {
                 day = day < getDay ? getDay : (day > cal.getActualMaximum(Calendar.DATE)) ? cal.getActualMaximum(Calendar.DATE) : day;
@@ -85,5 +88,4 @@ public class DateInput implements TextWatcher {
 
     }
 }
-
 

@@ -19,6 +19,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import static com.example.demo_diplom.App.getKeyStore;
+
+
 public class MainActivity extends AppCompatActivity {
 
     public final String SHARED_PREFERENCES_APP_NAME = "mySharePref";
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         mySharedPreferences = getSharedPreferences(SHARED_PREFERENCES_APP_NAME, MODE_PRIVATE);
 
-        if (App.getKeystore().hasPassword()) {
+        if (getKeyStore().hasPassword()) {
 
             intent = new Intent(MainActivity.this, PinActivity.class);
 

@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 
-public class ComparatorNotes implements Comparator<Note> {
+class ComparatorNotes implements Comparator<Note> {
     private Context context;
 
     ComparatorNotes(Context context) {
@@ -57,5 +57,3 @@ public class ComparatorNotes implements Comparator<Note> {
         return result;
     }
 }
-
-

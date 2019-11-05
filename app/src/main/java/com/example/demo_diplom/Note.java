@@ -2,50 +2,50 @@ package com.example.demo_diplom;
 
 import androidx.annotation.Nullable;
 
-public class Note{
-        private String headline;
-        private String textNote;
-        private String dateDeadline;
-        private String dateUpdateNote;
+public class Note {
 
-        Note(@Nullable String headline, String textNote, @Nullable String dateDeadline, @Nullable String dateUpdateNote) {
-            this.headline = headline;
-            this.textNote = textNote;
-            this.dateDeadline = dateDeadline;
-            this.dateUpdateNote = dateUpdateNote;
-        }
+    private String headline;
+    private String textNote;
+    private String dateDeadline;
+    private String dateUpdateNote;
 
-        String getHeadline() {
-            return headline;
-        }
+    Note(@Nullable String headline, String textNote, @Nullable String dateDeadline, @Nullable String dateUpdateNote) {
+        this.headline = headline;
+        this.textNote = textNote;
+        this.dateDeadline = dateDeadline;
+        this.dateUpdateNote = dateUpdateNote;
+    }
 
-        public void setHeadline(String headline) {
-            this.headline = headline;
-        }
+    String getHeadline() {
+        return headline;
+    }
 
-        String getTextNote() {
-            return textNote;
-        }
+    public void setHeadline(String headline) {
+        this.headline = headline;
+    }
 
-        public void setTextNote(String textNote) {
-            this.textNote = textNote;
-        }
+    String getTextNote() {
+        return textNote;
+    }
 
-        String getDateDeadline() {
-            return dateDeadline;
-        }
+    public void setTextNote(String textNote) {
+        this.textNote = textNote;
+    }
 
-        public void setDateDeadline(String dateDeadline) {
-            this.dateDeadline = dateDeadline;
-        }
+    String getDateDeadline() {
+        return dateDeadline;
+    }
 
-        String getDateUpdateNote() {
-            return dateUpdateNote;
-        }
+    public void setDateDeadline(String dateDeadline) {
+        this.dateDeadline = dateDeadline;
+    }
 
-        public void setDateUpdateNote(String dateUpdateNote) {
-            this.dateUpdateNote = dateUpdateNote;
-        }
+    String getDateUpdateNote() {
+        return dateUpdateNote;
+    }
+
+    public void setDateUpdateNote(String dateUpdateNote) {
+        this.dateUpdateNote = dateUpdateNote;
+    }
 }
-
 
