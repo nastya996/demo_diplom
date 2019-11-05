@@ -26,7 +26,6 @@ public class PinActivity extends AppCompatActivity {
 
         NumberButtonClickListener numberListener = new NumberButtonClickListener();
 
-
         int[] buttonIdNumber = new int[]{R.id.btn_one, R.id.btn_two
                 , R.id.btn_three, R.id.btn_four
                 , R.id.btn_five, R.id.btn_six
@@ -106,7 +105,7 @@ public class PinActivity extends AppCompatActivity {
             }
 
             if (enteredUserPassword.length() == 4) {
-                if (getKeyStore().checkPassword(enteredUserPassword)) {
+                if (App.getKeyStore().checkPassword(enteredUserPassword)) {
                     finish();
                 } else {
                     Toast.makeText(PinActivity.this, R.string.textErrorPassword, Toast.LENGTH_SHORT).show();

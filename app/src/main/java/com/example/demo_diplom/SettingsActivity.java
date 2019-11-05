@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.example.demo_diplom.App.getKeystore;
+import static com.example.demo_diplom.App.getKeyStore;
 
 public class SettingsActivity  extends AppCompatActivity {
 
@@ -43,7 +43,7 @@ public class SettingsActivity  extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (editNewPassword.length() == 4) {
-                    getKeystore().saveNewPassword(editNewPassword.getText().toString());
+                    getKeyStore().saveNewPassword(editNewPassword.getText().toString());
 
                     editNewPassword.setText("");
                     Toast.makeText(SettingsActivity.this, getString(R.string.textMessageSavePassword), Toast.LENGTH_SHORT).show();
