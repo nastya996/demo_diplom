@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -105,13 +104,13 @@ public class NoteActivity  extends AppCompatActivity implements DatePickerDialog
             public void onClick(View v) {
                 if (checkBox.isChecked()) {
 
-                    DialogFragment datePicker = new DateFragment();
+                    DialogFragment datePicker = new DataFragment();
                     datePicker.show(getSupportFragmentManager(), TAG_DATE_PICKER);
                 }
             }
         });
 
-        dataDeadline.addTextChangedListener(new DateInput(dataDeadline));
+        dataDeadline.addTextChangedListener(new DataInput(dataDeadline));
     }
 
     CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
