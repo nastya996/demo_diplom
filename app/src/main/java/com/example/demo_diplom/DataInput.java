@@ -6,14 +6,14 @@ import android.widget.EditText;
 
 import java.util.Calendar;
 
-public class DateInput implements TextWatcher {
+public class DataInput implements TextWatcher {
 
     private String current = "";
     private final String formatDate = "DDMMYYYY";
     private Calendar cal = Calendar.getInstance();
     private EditText input;
 
-    DateInput(EditText input) {
+    DataInput(EditText input) {
         this.input = input;
         this.input.addTextChangedListener(this);
     }

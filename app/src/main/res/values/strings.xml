@@ -13,33 +13,33 @@
     <string name="zero">0</string>
     <string name="clear"><![CDATA[<-]]></string>
     <string name="textErrorPassword">Неверный пароль</string>
-    <string name="numberZero" translatable="false">0</string>
-    <string name="numberOne" translatable="false">1</string>
-    <string name="numberTwo" translatable="false">2</string>
-    <string name="numberThree" translatable="false">3</string>
-    <string name="numberFour" translatable="false">4</string>
-    <string name="numberFive" translatable="false">5</string>
-    <string name="numberSix" translatable="false">6</string>
-    <string name="numberSeven" translatable="false">7</string>
-    <string name="numberEight" translatable="false">8</string>
-    <string name="numberNine" translatable="false">9</string>
+    <string name="numberZero">0</string>
+    <string name="numberOne">1</string>
+    <string name="numberTwo">2</string>
+    <string name="numberThree">3</string>
+    <string name="numberFour">4</string>
+    <string name="numberFive">5</string>
+    <string name="numberSix">6</string>
+    <string name="numberSeven">7</string>
+    <string name="numberEight">8</string>
+    <string name="numberNine">9</string>
     <string name="textViewNewPassword">Введите новый пароль:</string>
     <string name="textButtonSavePassword">Сохранить</string>
     <string name="editTextHintPassword">Введите новый пароль</string>
     <string name="textMessageSavePassword">Пароль сохранен</string>
-    <string name="textErrorLengthPassword">Пароль должен состоять из 4 цифр</string>
+    <string name="textErrorLengthPassword">Пароль состоит из 4 цифр</string>
     <string name="textTitleDialogDeleteNote">Удаление заметки</string>
     <string name="textQuestionDialogDelete">Удалить заметку?</string>
     <string name="textDialogNegativeButton">Нет</string>
     <string name="textDialogPositiveButton">Да</string>
     <string name="action_note">Заметка</string>
-    <string name="textMessageExit">Нажмите повторно, чтобы выйти</string>
-    <string name="symbolSeparationValues" translatable="false">;</string>
+    <string name="textMessageExit">Нажмите дважды для выхода</string>
+    <string name="symbolSeparationValues">;</string>
     <string name="textMessageCreateDefaultNotes">Создание тестовых заметок</string>
-    <string name="textErrorMessageSaveNote">Для сохранения: заполните тело!</string>
+    <string name="textErrorMessageSaveNote">Для сохранения: заполните тело тело</string>
     <string name="textMessageSaveNote">Заметка сохранена</string>
     <string name="textMessageUpdateNote">Заметка обнавлена</string>
-    <string name="formatDate" translatable="false">dd.MM.yyyy</string>
+    <string name="formatDate">dd.MM.yyyy</string>
     <string name="title_settings">Enter new pin:</string>
     <string name="save_pin">save</string>
     <string name="hint_edit_text_settings">Введите пинкод</string>
@@ -52,10 +52,6 @@
     <string name="subtitle">Тело заметки</string>
     <string name="deadline">Дедлайн</string>
     <string name="todo">TODO</string>
-
-
-
-
 
 
 </resources>

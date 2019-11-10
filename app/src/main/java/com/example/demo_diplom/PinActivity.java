@@ -37,6 +37,7 @@ public class PinActivity extends AppCompatActivity {
             findViewById(buttonId).setOnClickListener(numberListener);
         }
 
+
         images = new int[]{R.id.oval_1, R.id.oval_2
                 , R.id.oval_3, R.id.oval_4};
     }
@@ -98,9 +99,9 @@ public class PinActivity extends AppCompatActivity {
             }
             for (int i = 0; i < images.length; i++) {
                 if (i < enteredUserPassword.length()) {
-                    findViewById(images[i]).setBackgroundColor(Color.rgb(255, 193, 7));
+                    findViewById(images[i]).setBackgroundResource(R.drawable.circle_set);
                 } else {
-                    findViewById(images[i]).setBackgroundColor(Color.rgb(80, 80, 80));
+                    findViewById(images[i]).setBackgroundResource(R.drawable.circle);
                 }
             }
 
@@ -113,4 +114,5 @@ public class PinActivity extends AppCompatActivity {
             }
         }
     }
+
 }

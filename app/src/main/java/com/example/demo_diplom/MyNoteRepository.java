@@ -44,9 +44,7 @@ import static android.content.Context.MODE_PRIVATE;
         String dateNow = new SimpleDateFormat(context.getString(R.string.formatDate), Locale.getDefault()).format(new Date());
 
         saveNote(new Note(context.getString(R.string.title1), context.getString(R.string.text1), context.getString(R.string.deadline1), dateNow));
-        saveNote(new Note(null,context.getString(R.string.text2),null,context.getString(R.string.date_update)));
-        saveNote(new Note(null,context.getString(R.string.text3),context.getString(R.string.deadline2),dateNow));
-        saveNote(new Note(context.getString(R.string.title4), context.getString(R.string.text4), context.getString(R.string.deadline3), context.getString(R.string.data_update2)));
+        saveNote(new Note(null, context.getString(R.string.text2), null, context.getString(R.string.date_update)));
     }
 
      @Override
