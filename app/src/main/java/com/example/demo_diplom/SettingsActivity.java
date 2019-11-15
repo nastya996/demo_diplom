@@ -2,10 +2,8 @@ package com.example.demo_diplom;
 
 
 import android.content.Intent;
-
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
@@ -13,10 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
 import android.widget.Toast;
+
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import static com.example.demo_diplom.App.getKeyStore;
 
@@ -24,8 +25,9 @@ import static com.example.demo_diplom.App.getKeyStore;
 public class SettingsActivity extends AppCompatActivity {
 
     private boolean lookPassword = false;
-
-    private static final String LOGIN_FILE = "login";
+    final String SAVED_TEXT = "saved_text";
+    EditText uName;
+    SharedPreferences sLogin;
 
 
     @Override
@@ -34,14 +36,22 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         initViews();
+        saveLogin();
+        loadText();
+
     }
 
     public void initViews() {
 
+        uName = (EditText) findViewById(R.id.editTextPassword);
+
         ActionBar actionBar = getSupportActionBar();
+
 
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         }
 
         final EditText editNewPassword = findViewById(R.id.editTextPassword);
@@ -81,7 +91,9 @@ public class SettingsActivity extends AppCompatActivity {
                 lookPassword = !lookPassword;
             }
         });
+
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -93,12 +105,21 @@ public class SettingsActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-
     }
 
+    private void saveLogin() {
+        sLogin = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sLogin.edit();
+        ed.putString(SAVED_TEXT, uName.getText().toString());
+        ed.commit();
+    }
 
+    private void loadText() {
+        sLogin = getPreferences(MODE_PRIVATE);
+        String savedText = sLogin.getString(SAVED_TEXT, "");
+        uName.setText(savedText);
+        //ONLY FOR CHECKING saveLogin METHOD
+      //  Toast.makeText(SettingsActivity.this, "Your logged in as " + sLogin.getString(SAVED_TEXT, ""), Toast.LENGTH_LONG).show();
 
-
-
+    }
 }
