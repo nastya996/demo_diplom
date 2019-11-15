@@ -1,6 +1,8 @@
 package com.example.demo_diplom;
 
+
 import android.os.Bundle;
+
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
@@ -15,9 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import static com.example.demo_diplom.App.getKeyStore;
 
-public class SettingsActivity  extends AppCompatActivity {
+
+public class SettingsActivity extends AppCompatActivity {
 
     private boolean lookPassword = false;
+
+    private static final String LOGIN_FILE = "login";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,7 @@ public class SettingsActivity  extends AppCompatActivity {
         });
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -84,5 +91,5 @@ public class SettingsActivity  extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
 
+}

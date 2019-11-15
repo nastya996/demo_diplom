@@ -1,7 +1,10 @@
 package com.example.demo_diplom;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,6 +16,8 @@ public class PinActivity extends AppCompatActivity {
 
     private String enteredUserPassword = "";
     private int[] images;
+    private SharedPreferences pref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,7 @@ public class PinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initViews();
     }
+
 
     private void initViews() {
 
@@ -32,6 +38,13 @@ public class PinActivity extends AppCompatActivity {
                 , R.id.btn_seven, R.id.btn_eight
                 , R.id.btn_nine, R.id.btn_zero
                 , R.id.btn_clear};
+
+        pref = getSharedPreferences("Pin", MODE_PRIVATE);
+        String savedPin = pref.getString("Pin", "");
+        if (savedPin.equals("")) {
+            Intent intentSettings = new Intent(this, SettingsActivity.class);
+            startActivity(intentSettings);
+        }
 
         for (int buttonId : buttonIdNumber) {
             findViewById(buttonId).setOnClickListener(numberListener);
@@ -46,8 +59,6 @@ public class PinActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int idButtonClicked;
-
-
 
 
             if (enteredUserPassword.length() < 4) {
@@ -115,4 +126,6 @@ public class PinActivity extends AppCompatActivity {
         }
     }
 
+
 }
+
