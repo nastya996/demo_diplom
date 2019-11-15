@@ -7,4 +7,5 @@ public interface KeyStore {
     boolean checkPassword(String password);
 
     void saveNewPassword(String password);
+
 }

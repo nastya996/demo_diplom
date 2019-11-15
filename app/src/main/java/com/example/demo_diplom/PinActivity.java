@@ -2,15 +2,15 @@ package com.example.demo_diplom;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.example.demo_diplom.App.getKeyStore;
+
 
 public class PinActivity extends AppCompatActivity {
 
@@ -22,7 +22,7 @@ public class PinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
         initViews();
     }
@@ -125,6 +125,7 @@ public class PinActivity extends AppCompatActivity {
             }
         }
     }
+
 
 
 }

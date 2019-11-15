@@ -1,7 +1,10 @@
 package com.example.demo_diplom;
 
 
+import android.content.Intent;
+
 import android.os.Bundle;
+
 
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -79,17 +82,23 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent notesIntent = new Intent(SettingsActivity.this, PinActivity.class);
+                startActivity(notesIntent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+
     }
+
+
+
+
 
 }
