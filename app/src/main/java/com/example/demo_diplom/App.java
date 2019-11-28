@@ -2,32 +2,38 @@ package com.example.demo_diplom;
 
 import android.app.Application;
 
+import androidx.room.Room;
 
 public class App extends Application {
+    private static App instance;
+    private static NotesRepository notesRepository;
+    private static Keystore keyStore;
+    private DatabaseHelper db;
 
-    public static NoteRepository noteRepository;
-    public static KeyStore hashedKeyStore;
-    public static final String FILE_NAME = "data.json";
-
+    public static App getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-
-        noteRepository = new MyNoteRepository(this, FILE_NAME);
-        hashedKeyStore = new HashedKeyStore();
-
-
+        instance = this;
+        db = Room.databaseBuilder(getApplicationContext(), DatabaseHelper.class, Constants.DB_NAME)
+                .allowMainThreadQueries()
+                .build();
+        notesRepository = new dbNotesRepository(this);
+        keyStore = new SimpleKeystore(this);
     }
 
-    public static NoteRepository getNoteRepository() {
-        return noteRepository;
+    public static NotesRepository getNotesRepository() {
+        return notesRepository;
     }
 
-    public static KeyStore getKeyStore() {
-        return hashedKeyStore;
+    public static Keystore getKeystore() {
+        return keyStore;
     }
 
-
+    public DatabaseHelper getDatabaseInstance() {
+        return db;
+    }
 }

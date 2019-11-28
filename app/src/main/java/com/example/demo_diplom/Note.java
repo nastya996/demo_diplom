@@ -1,51 +1,76 @@
 package com.example.demo_diplom;
 
-import androidx.annotation.Nullable;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import java.util.Date;
+
+@Entity
 public class Note {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private String noteTitle;
+    @TypeConverters({DateConverter.class})
+    private Date datePub;
+    @TypeConverters({DateConverter.class})
+    private Date dateDeadline;
+    private int isDeadLine;
+    private String noteDescription;
 
-    private String headline;
-    private String textNote;
-    private String dateDeadline;
-    private String dateUpdateNote;
-
-    Note(@Nullable String headline, String textNote, @Nullable String dateDeadline, @Nullable String dateUpdateNote) {
-        this.headline = headline;
-        this.textNote = textNote;
+    public Note(String noteTitle, Date datePub, Date dateDeadline, int isDeadLine, String noteDescription) {
+        this.noteTitle = noteTitle;
+        this.datePub = datePub;
         this.dateDeadline = dateDeadline;
-        this.dateUpdateNote = dateUpdateNote;
+        this.isDeadLine = isDeadLine;
+        this.noteDescription = noteDescription;
     }
 
-    String getHeadline() {
-        return headline;
+    public int getId() {
+        return id;
     }
 
-    public void setHeadline(String headline) {
-        this.headline = headline;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    String getTextNote() {
-        return textNote;
+    public String getNoteTitle() {
+        return noteTitle;
     }
 
-    public void setTextNote(String textNote) {
-        this.textNote = textNote;
+    public void setNoteTitle(String noteTitle) {
+        this.noteTitle = noteTitle;
     }
 
-    String getDateDeadline() {
+    public Date getDatePub() {
+        return datePub;
+    }
+
+    public void setDatePub(Date datePub) {
+        this.datePub = datePub;
+    }
+
+    public Date getDateDeadline() {
         return dateDeadline;
     }
 
-    public void setDateDeadline(String dateDeadline) {
+    public void setDateDeadline(Date dateDeadline) {
         this.dateDeadline = dateDeadline;
     }
 
-    String getDateUpdateNote() {
-        return dateUpdateNote;
+    public int getIsDeadLine() {
+        return isDeadLine;
     }
 
-    public void setDateUpdateNote(String dateUpdateNote) {
-        this.dateUpdateNote = dateUpdateNote;
+    public void setIsDeadLine(int isDeadLine) {
+        this.isDeadLine = isDeadLine;
+    }
+
+    public String getNoteDescription() {
+        return noteDescription;
+    }
+
+    public void setNoteDescription(String noteDescription) {
+        this.noteDescription = noteDescription;
     }
 }
-

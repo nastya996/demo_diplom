@@ -1,169 +1,112 @@
 package com.example.demo_diplom;
-
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo_diplom.App.getKeyStore;
+/**
+ * Anastasia Shtrezer
+ */
 
+// Это моя первая и усовершенствованная задумка и реализация заметок
 
 public class MainActivity extends AppCompatActivity {
-
-    public final String SHARED_PREFERENCES_APP_NAME = "mySharePref";
-    public static final String SHARED_PREFERENCES_APP_PASSWORD = "AppPassword";
-    public static final String POSITION_LISTVIEW = "Position";
-    public static SharedPreferences mySharedPreferences;
-    private Intent intent;
-    private NoteAdapter adapter;
-    private static long back_pressed;
-    private NoteRepository fileNoteRepository;
-    public static final String FILE_NAME = "data.file";
+    private RecyclerView rvListNotes;
+    private Toolbar toolbar;
+    private FloatingActionButton fab;
+    private NotesRepository noteRepository;
+    private NotesRecyclerAdapter recyclerAdapter;
+    private List<Note> noteList = new ArrayList<>();
+    private long backPressedTime;
+    private Toast toastBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
-        mySharedPreferences = getSharedPreferences(SHARED_PREFERENCES_APP_NAME, MODE_PRIVATE);
-
-        if (getKeyStore().hasPassword()) {
-
-            intent = new Intent(MainActivity.this, PinActivity.class);
-
-            if (intent != null) {
-                startActivity(intent);
-            }
-        }
-
-        initViews();
+        initView();
     }
 
-    public void displayNotes() {
-
-        List<Note> notes = fileNoteRepository.getNotes();
-
-        if (notes != null) {
-
-            adapter.refresh(notes);
-        }
+    //создание адаптера, вывод существующих данных
+    @Override
+    protected void onResume() {
+        super.onResume();
+        noteRepository = App.getInstance().getNotesRepository();
+        noteList = noteRepository.getNotes();
+        recyclerAdapter = new NotesRecyclerAdapter(this, noteRepository.getNotes());
+        rvListNotes.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        rvListNotes.setAdapter(recyclerAdapter);
     }
 
-    public void initViews() {
-        fileNoteRepository = App.getNoteRepository();
-
-        final ListView listView = findViewById(R.id.listView);
-        adapter = new NoteAdapter(this, null);
-        listView.setAdapter(adapter);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
+    //определение всех начальных объектов
+    private void initView() {
+        rvListNotes = findViewById(R.id.list_notes);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openNoteActivity(-1);
+                addNewNote(view);
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openNoteActivity(position);
-            }
-        });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-                new AlertDialog.Builder(MainActivity.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getString(R.string.textTitleDialogDeleteNote))
-                        .setMessage(getString(R.string.textQuestionDialogDelete))
-                        .setPositiveButton(getString(R.string.textDialogPositiveButton), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                adapter.removeNote(position);
-
-                                fileNoteRepository.deleteById(String.valueOf(position));
-
-                                displayNotes();
-                            }
-                        }).setNegativeButton(getString(R.string.textDialogNegativeButton), null).show();
-                return true;
-            }
-        });
-
-        if (!fileNoteRepository.connection()) {
-            fileNoteRepository.createDefaultNotes();
-            Toast.makeText(this, getString(R.string.textMessageCreateDefaultNotes), Toast.LENGTH_SHORT).show();
-        }
-
-        displayNotes();
     }
 
-    public void openNoteActivity(int position) {
 
-        intent = new Intent(MainActivity.this, NoteActivity.class);
-
-        intent.putExtra(POSITION_LISTVIEW, position);
-
-        if (intent != null) {
-            startActivity(intent);
-        }
+    //открытие активити для добавления новой записи
+    public void addNewNote(View view) {
+        startActivity(new Intent(MainActivity.this, ActivityNote.class));
     }
 
-    @Override
-    protected void onResume() {
-        displayNotes();
-        super.onResume();
-    }
-
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
         return true;
+
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected( MenuItem item) {
+        switch (item.getItemId()) {
+            case  R.id.share:
+              return true;
 
-        int id = item.getItemId();
-
-
-        if (id == R.id.action_settings) {
-            intent = new Intent(MainActivity.this, SettingsActivity.class);
-
-            if (intent != null) {
-                startActivity(intent);
-            }
-            return true;
         }
-        return super.onOptionsItemSelected(item);
-    }
 
+        return super.onOptionsItemSelected(item);
+
+    }
+*/
     @Override
     public void onBackPressed() {
-        if (back_pressed + 2000 > System.currentTimeMillis()) {
-            finish();
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            toastBack.cancel();
+            finishAffinity();
         } else {
-            Toast.makeText(getBaseContext(), getString(R.string.textMessageExit), Toast.LENGTH_SHORT).show();
+            toastBack = Toast.makeText(this, getResources().getText(R.string.back_pressed
+            ), Toast.LENGTH_SHORT);
+            toastBack.show();
         }
-        back_pressed = System.currentTimeMillis();
+        backPressedTime = System.currentTimeMillis();
     }
+
+
 }

@@ -1,125 +1,108 @@
 package com.example.demo_diplom;
 
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.view.MenuItem;
+import android.os.CountDownTimer;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
-import android.widget.Toast;
-
-
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-
-import static com.example.demo_diplom.App.getKeyStore;
-
+import androidx.appcompat.widget.Toolbar;
 
 public class SettingsActivity extends AppCompatActivity {
-
-    private boolean lookPassword = false;
-    final String SAVED_TEXT = "saved_text";
-    EditText uName;
-    SharedPreferences sLogin;
-
+    private Toolbar toolbar;
+    private Keystore keyStore;
+    private EditText editTextPassword;
+    private ImageButton buttonLookPassword;
+    private Button buttonSavePassword;
+    private TextView tvMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
-        initViews();
-        saveLogin();
-        loadText();
-
+        keyStore = App.getInstance().getKeystore();
+        initView();
     }
 
-    public void initViews() {
 
-        uName = (EditText) findViewById(R.id.editTextPassword);
-
-        ActionBar actionBar = getSupportActionBar();
-
-
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-
-
-        }
-
-        final EditText editNewPassword = findViewById(R.id.editTextPassword);
-
-        Button btnSavePassword = findViewById(R.id.buttonSavePassword);
-        btnSavePassword.setOnClickListener(new View.OnClickListener() {
+    private void initView() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getString(R.string.settings));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                if (editNewPassword.length() == 4) {
-                    getKeyStore().saveNewPassword(editNewPassword.getText().toString());
-
-                    editNewPassword.setText("");
-                    Toast.makeText(SettingsActivity.this, getString(R.string.textMessageSavePassword), Toast.LENGTH_SHORT).show();
-
-                    finish();
-                } else {
-                    Toast.makeText(SettingsActivity.this, getString(R.string.textErrorLengthPassword), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        final ImageButton btnLookPassword = findViewById(R.id.buttonLookPassword);
-
-        btnLookPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (lookPassword) {
-                    btnLookPassword.setImageResource(R.drawable.ic_visibility_off_black_24dp);
-                    editNewPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                } else {
-                    btnLookPassword.setImageResource(R.drawable.ic_visibility_black_24dp);
-                    editNewPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
-                editNewPassword.setSelection(editNewPassword.getText().length());
-                lookPassword = !lookPassword;
-            }
-        });
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent notesIntent = new Intent(SettingsActivity.this, PinActivity.class);
-                startActivity(notesIntent);
+            public void onClick(View view) {
                 finish();
+            }
+        });
+        editTextPassword = findViewById(R.id.editTextPassword);
+        editTextPassword.setFilters(new InputFilter[]{new InputFilter.LengthFilter(Constants.PASS_LENGTH)}); //задаем максимальную длину вводимого значения
+
+        //показ и скрытие значений пароля
+        buttonLookPassword = findViewById(R.id.buttonLookPassword);
+        buttonLookPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                showHidePass(motionEvent);
                 return true;
+            }
+        });
+
+        //сохранение пароля
+        buttonSavePassword = findViewById(R.id.buttonSavePassword);
+        buttonSavePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savePassword();
+            }
+        });
+    }
+
+    private void showHidePass(MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN: // нажатие
+                editTextPassword.setInputType(InputType.TYPE_CLASS_NUMBER);
+                buttonLookPassword.setImageResource(R.drawable.ic_visibility_black_24dp);
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                editTextPassword.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+                buttonLookPassword.setImageResource(R.drawable.ic_visibility_off_black_24dp);
+                break;
         }
     }
 
-    private void saveLogin() {
-        sLogin = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sLogin.edit();
-        ed.putString(SAVED_TEXT, uName.getText().toString());
-        ed.commit();
+    private void savePassword() {
+        String passValue = editTextPassword.getText().toString();
+        // длина пароля
+        if (passValue.length() < Constants.PASS_LENGTH || passValue == null) {
+            showErrorMessage(R.string.msg_error);
+            editTextPassword.setText("");
+        } else {
+            keyStore.saveNew(this, passValue);
+            Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
-    private void loadText() {
-        sLogin = getPreferences(MODE_PRIVATE);
-        String savedText = sLogin.getString(SAVED_TEXT, "");
-        uName.setText(savedText);
-        //ONLY FOR CHECKING saveLogin METHOD
-      //  Toast.makeText(SettingsActivity.this, "Your logged in as " + sLogin.getString(SAVED_TEXT, ""), Toast.LENGTH_LONG).show();
+    private void showErrorMessage(final int message) {
+        tvMessage = findViewById(R.id.tv_message);
+        CountDownTimer timer = new CountDownTimer(3000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                tvMessage.setVisibility(View.VISIBLE);
+                tvMessage.setText(getResources().getText(message));
+            }
 
+            public void onFinish() {
+                tvMessage.setVisibility(View.GONE);
+            }
+        };
+        timer.start();
     }
 }

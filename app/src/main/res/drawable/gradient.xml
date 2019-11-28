@@ -8,12 +8,15 @@
         android:centerColor="#00E676"
         android:endColor= "#B9F6CA"
         android:angle="180"
-        android:type="linear"/>
+        android:type="linear"
+        />
     <corners
         android:bottomRightRadius="12dp"
         android:radius="4dp"
         android:topRightRadius="12dp"
         android:bottomLeftRadius="12dp"
-        android:topLeftRadius="12dp"/>
+        android:topLeftRadius="12dp"
+        />
+
 
 </shape>

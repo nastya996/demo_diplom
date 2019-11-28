@@ -1,11 +1,11 @@
 package com.example.demo_diplom;
 
-public interface KeyStore {
+import android.content.Context;
 
-    boolean hasPassword();
+public interface Keystore {
+    boolean hasPin(Context context);
 
-    boolean checkPassword(String password);
+    boolean checkPin(Context context, String pin);
 
-    void saveNewPassword(String password);
-
+    void saveNew(Context context, String pin);
 }
