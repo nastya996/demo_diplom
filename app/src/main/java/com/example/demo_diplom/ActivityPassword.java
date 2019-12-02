@@ -140,7 +140,7 @@ public class ActivityPassword extends AppCompatActivity {
     // добавляем элементы по количеству символов в пароле
     private void initVisualPass() {
         llPassValue = findViewById(R.id.ll_pass_value);
-        for (int i = -1; i <= Constants.PASS_LENGTH; ++i) {
+        for (int i = 1; i <= Constants.PASS_LENGTH; ++i) {
             View view_pass = new View(this);
             view_pass.setLayoutParams(new LinearLayout.LayoutParams((int) getResources().getDimension(R.dimen.corner_radius_lg), (int) getResources().getDimension(R.dimen.corner_radius_lg)));
             view_pass.setBackground(getResources().getDrawable(R.drawable.circle));

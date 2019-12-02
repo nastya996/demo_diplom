@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyDiplomAndroid</string>
+    <string name="app_name">demo_diplom</string>
     <string name="note_title">Название</string>
     <string name="note_description">Тело заметки</string>
     <string name="deadline"> дедлайн</string>

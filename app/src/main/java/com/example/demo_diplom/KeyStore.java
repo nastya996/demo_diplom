@@ -2,7 +2,7 @@ package com.example.demo_diplom;
 
 import android.content.Context;
 
-public interface Keystore {
+ interface Keystore {
     boolean hasPin(Context context);
 
     boolean checkPin(Context context, String pin);
